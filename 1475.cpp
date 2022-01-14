@@ -1,31 +1,25 @@
-#include<bits/stdc++.h>
-
+#include <bits/stdc++.h>
 using namespace std;
 
 int main() {
-    ios::sync_with_stdio(0);
-    cin.tie(0);
+  ios::sync_with_stdio(0);
+  cin.tie(0);
+  
+  // ans = 1로 둠으로서 N = 0일때에 대한 예외처리가 자연스럽게 가능해짐
+  int N, a[10] = {}, ans = 1;
+  cin >> N;
+  
+  // 자리수 추출
+  while(N){
+    a[N%10]++;
+    N /= 10;
+  }
 
-    int input;
-    int val = 1;
-    int list[10] = {};
-
-    //입력
-    cin >> input;
-    
-    //입력 받은 숫자 배열에 하나씩 저장
-    while(input > 0) {
-        list[input%10]++;
-        input/=10;
-    }
-
-    //같은 숫자 나오면 1증가, 6이나 9가 2번 나왔을 경우 증가안함
-    for (int i=0; i<10; ++i) {
-        if (list[6] > 1 || list[9] > 1) {
-            val = (list[6]+list[9]+1) / 2;
-        } else if (list[i] > 1) {
-            val+=list[i];
-        }
-    }
-    cout << val;
+  for(int i = 0; i < 10; i++){
+    if(i == 6 || i == 9) continue;
+    ans = max(ans, a[i]);
+  }
+  // (a[6]+a[9])/2를 올림한 값이 6, 9에 대한 필요한 세트의 수이므로 (a[6]+a[9]+1)/2을 계산
+  ans = max(ans, (a[6]+a[9]+1)/2);
+  cout << ans;
 }
