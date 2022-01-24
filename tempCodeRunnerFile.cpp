@@ -1,2 +1,2 @@
 
-}
+        q.push(q.front());
